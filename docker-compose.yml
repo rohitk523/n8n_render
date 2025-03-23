@@ -18,6 +18,7 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678}
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-UTC}
       - TZ=${TZ:-UTC}
+      - N8N_RUNNERS_ENABLED=true
     volumes:
       - n8n_data:/home/node/.n8n
     depends_on:
