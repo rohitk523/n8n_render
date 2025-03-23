@@ -27,7 +27,7 @@ services:
           type: pserv
           property: password
       - key: N8N_ENCRYPTION_KEY
-        generateValue: true
+        sync: false # Changed from generateValue to sync so you can set a fixed value
       - key: N8N_PORT
         value: 5678
       - key: WEBHOOK_URL
@@ -36,6 +36,8 @@ services:
         value: UTC
       - key: TZ
         value: UTC
+      - key: N8N_PERSIST_DATA
+        value: true
     disk:
       name: n8n-data
       mountPath: /home/node/.n8n
@@ -54,7 +56,7 @@ services:
       - key: POSTGRES_USER
         value: n8n
       - key: POSTGRES_PASSWORD
-        generateValue: true
+        sync: false # Changed from generateValue to sync for consistency
       - key: POSTGRES_DB
         value: n8n
     disk:
