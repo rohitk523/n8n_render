@@ -1,0 +1,65 @@
+services:
+  - type: web
+    name: n8n
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: DATABASE_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_HOST
+        fromService:
+          name: n8n-postgres
+          type: pserv
+          property: host
+      - key: DB_POSTGRESDB_PORT
+        value: 5432
+      - key: DB_POSTGRESDB_DATABASE
+        value: n8n
+      - key: DB_POSTGRESDB_USER
+        fromService:
+          name: n8n-postgres
+          type: pserv
+          property: user
+      - key: DB_POSTGRESDB_PASSWORD
+        fromService:
+          name: n8n-postgres
+          type: pserv
+          property: password
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: N8N_PORT
+        value: 5678
+      - key: WEBHOOK_URL
+        sync: false # This allows us to set a custom value during deployment
+      - key: GENERIC_TIMEZONE
+        value: UTC
+      - key: TZ
+        value: UTC
+      - key: N8N_HOST
+        sync: false # This will be set to the Render domain
+    disk:
+      name: n8n-data
+      mountPath: /home/node/.n8n
+      sizeGB: 10
+    healthCheckPath: /
+    customDomains:
+      - domain: n8n.yourdomain.com
+        type: PRIMARY
+
+  - type: pserv
+    name: n8n-postgres
+    env: docker
+    plan: standard
+    image: postgres:14-alpine
+    envVars:
+      - key: POSTGRES_USER
+        value: n8n
+      - key: POSTGRES_PASSWORD
+        generateValue: true
+      - key: POSTGRES_DB
+        value: n8n
+    disk:
+      name: postgres-data
+      mountPath: /var/lib/postgresql/data
+      sizeGB: 10
