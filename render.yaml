@@ -36,8 +36,6 @@ services:
         value: UTC
       - key: TZ
         value: UTC
-      - key: N8N_HOST
-        sync: false # This will be set to the Render domain
     disk:
       name: n8n-data
       mountPath: /home/node/.n8n
