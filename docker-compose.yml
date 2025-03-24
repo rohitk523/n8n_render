@@ -8,6 +8,9 @@ services:
       - "${N8N_PORT:-5678}:${N8N_PORT:-5678}"
     environment:
       - DATABASE_TYPE=${DATABASE_TYPE:-postgresdb}
+      # Use connection string for production with Supabase
+      - DB_POSTGRESDB_URL=${DB_POSTGRESDB_URL}
+      # Keep these for local development fallback
       - DB_POSTGRESDB_HOST=${DB_POSTGRESDB_HOST:-postgres}
       - DB_POSTGRESDB_PORT=${DB_POSTGRESDB_PORT:-5432}
       - DB_POSTGRESDB_DATABASE=${DB_POSTGRESDB_DATABASE:-n8n}
@@ -19,11 +22,11 @@ services:
       - GENERIC_TIMEZONE=${GENERIC_TIMEZONE:-UTC}
       - TZ=${TZ:-UTC}
       - N8N_RUNNERS_ENABLED=true
+      - N8N_PERSIST_DATA=true
     volumes:
       - n8n_data:/home/node/.n8n
-    depends_on:
-      - postgres
 
+  # For local development only
   postgres:
     image: postgres:14-alpine
     restart: always
