@@ -43,15 +43,13 @@ services:
       mountPath: /home/node/.n8n
       sizeGB: 10
     healthCheckPath: /
-    customDomains:
-      - domain: n8n.yourdomain.com
-        type: PRIMARY
+
 
   - type: pserv
     name: n8n-postgres
     env: docker
     plan: standard
-    image: postgres:14-alpine
+    image: postgres:14
     envVars:
       - key: POSTGRES_USER
         value: n8n
