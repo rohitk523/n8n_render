@@ -83,4 +83,4 @@ When deploying to Render, these variables are set automatically based on the `re
 
 Render will automatically rebuild your application when you push changes to your repository. To update n8n to a newer version, update the base image version in the Dockerfile.
 
-checking persistant volume
+checking persistant volume.
