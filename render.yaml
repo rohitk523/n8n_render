@@ -48,8 +48,7 @@ services:
   - type: pserv
     name: n8n-postgres
     env: docker
-    plan: standard
-    image: postgres:14
+    plan: free
     envVars:
       - key: POSTGRES_USER
         value: n8n
