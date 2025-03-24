@@ -49,9 +49,7 @@ services:
     name: n8n-postgres
     env: docker
     plan: standard
-    image:
-      name: postgres
-      tag: 14
+    image: postgres:14
     envVars:
       - key: POSTGRES_USER
         value: n8n
