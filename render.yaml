@@ -22,8 +22,4 @@ services:
         value: UTC
       - key: N8N_PERSIST_DATA
         value: "true"
-    disk:
-      name: n8n-data
-      mountPath: /home/node/.n8n
-      sizeGB: 10
     healthCheckPath: /
